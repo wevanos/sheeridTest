@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "7c72e14c-9b06-4699-9216-0a64ac7cd109",
+		"name": "sheerIdTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "listUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c45dccf6-dc40-4b15-989f-b55f9dd5f166",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonObject = JSON.parse(responseBody)",
+							"",
+							"var id = jsonObject[\"data\"][1];",
+							"",
+							"pm.environment.set(\"USER\", id[\"id\"]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}users?page=2",
+					"host": [
+						"{{URL}}users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6118436c-ef1e-4ca3-9b3a-43d84589556e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}users/{{USER}}",
+					"host": [
+						"{{URL}}users"
+					],
+					"path": [
+						"{{USER}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
